@@ -10,7 +10,20 @@ $(function () {
     function getData() {
         // #14 Get a selected product and display as a form
         // use $.get
-
+       $.get(url, function(data, status){
+       console.log(data);
+       console.log(status);
+       if(status == 'success'){
+        for(index in data){
+            var data1 = data[index];
+            $.product.serialno
+            $.product.name
+            $.product.category
+            $.product.price
+            $.product.photo     
+        }
+    }
+       });
         // ===============================
     }
 
@@ -48,8 +61,19 @@ $(function () {
 
     $("#confirmdelete").click(function () {
         // #15 Get a selected product and go back to product list
-        // use $.get and winidow.location.href
-
+        // use $.get and winidow.location.href  
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            data: deleteproduct,
+            success: function (result) {
+                //Show updated status
+                $("#modalbody").text("Deleted product " + pid);
+                $('#alertModal').modal('toggle');
+                // Refresh data
+                getData();
+            }
+        });
         // ===============================
     });
 });
